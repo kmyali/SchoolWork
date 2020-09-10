@@ -101,9 +101,7 @@ protected:
 		}
 		
 		Node& min() {
-			/*while (left_ != nullptr) {
-				min=left_.get();
-			}*/
+			
 			//if a left pointer exists
 			if (left_ != nullptr) {
 				return left_->min();
@@ -114,11 +112,7 @@ protected:
 		}
 		
 		Node& max() {
-			/*Node* max = root_.get();
-			while (right_ != nullptr) {
-				max = right_.get();
-			}
-			return *max;*/
+
 			//if a right pointer exists
 			if (right_ != nullptr) {
 				return right_->max();
@@ -128,7 +122,7 @@ protected:
 			}
 		}
 		
-		//This function finds the minimum value in a subtree and steals its value
+		//This function finds the minimum value in a subtree and moves its value
 		T takeMin() {
 			if (left_) {
 				return left_->takeMin();
@@ -208,7 +202,7 @@ protected:
 
 	void insert(T&& value, std::unique_ptr<Node>& node) {
 		if (node.get() == nullptr) {
-			node = std::make_unique<Node>(std::move(value), compare_); // should i use std move
+			node = std::make_unique<Node>(std::move(value), compare_);
 		}
 		else if (compare_(node->value(), value)){
 			insert(std::move(value), node->right_);
@@ -251,35 +245,6 @@ protected:
 			node.swap(node->left_ ? node->left_ : node->right_); // replace with the child pointer
 			return true;
 		}
-		/*else if (value == node->value()) {
-
-			//Case 1: Attempting to remove a leaf node
-			if (node->right_ == nullptr) {
-				node = nullptr;
-				return true;
-			}
-
-			//Case 2: Attempting to remove a non-leaf node
-			else if (node->right_->right_ != nullptr) {
-				node->element_ = node->right_->value(); // Copy the value in the right child
-				node->count_ = node->right_->count_; // Keep track of count for each node
-
-				remove(node->value(), node->right_); //recursive call to remove the value that was copied from right subtree
-
-			}
-
-			// Also for case 2, this is where recursion terminates
-			else {
-				node->element_ = node->right_->value(); 
-				node->count_ = node->right_->count_; 
-
-				node->right_ = nullptr;
-			}
-			
-			return true;
-		}
-		*/
-
 	}
 
 	Comparator compare_;
@@ -348,9 +313,7 @@ private:
 		}
 
 		Node& min() {
-			/*while (left_ != nullptr) {
-				min=left_.get();
-			}*/
+
 			//if a left pointer exists
 			if (left_ != nullptr) {
 				return left_->min();
@@ -361,11 +324,7 @@ private:
 		}
 
 		Node& max() {
-			/*Node* max = root_.get();
-			while (right_ != nullptr) {
-				max = right_.get();
-			}
-			return *max;*/
+			
 			//if a right pointer exists
 			if (right_ != nullptr) {
 				return right_->max();
